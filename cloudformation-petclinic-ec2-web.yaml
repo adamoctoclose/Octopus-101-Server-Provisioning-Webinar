@@ -29,7 +29,7 @@ Parameters:
     Default: '#{Project.AWS.SecurityGroup}'
   IamInstanceProfile:
     Type: String
-    Default: OctopusSamplesEC2Role
+    Default: 
   InstanceType:
     Description: WebServer EC2 instance type
     Type: String
