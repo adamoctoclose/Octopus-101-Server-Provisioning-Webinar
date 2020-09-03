@@ -4,7 +4,7 @@ TOMCAT_INSTALL_STARTUP=/opt/tomcat/latest/bin/startup.sh
 if [[ -f $TOMCAT_INSTALL_STARTUP ]]; then
   echo "Tomcat already installed"
 else
-TOMCAT_USER="octopus"
+TOMCAT_USER="tomcat"
 TOMCAT_GROUP="tomcat"
 TOMCAT_ADMIN_USER=#{Project.Tomcat.Username}
 TOMCAT_ADMIN_PASSWORD=#{Project.Tomcat.Password}
