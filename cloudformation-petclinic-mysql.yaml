@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AWS CloudFormation Template for creating an Amazon RDS DB instance
+Parameters:
+  DBInstanceID:
+    Default: '#{Project.AWS.MySQL.Stack.Name}'
+    Description: My database instance
+    Type: String
+  DBInstanceClass:
+    Default: db.t2.micro
+    Description: DB instance class
+    Type: String
+    ConstraintDescription: Must select a valid DB instance type.
+  DBAllocatedStorage:
+    Default: '50'
+    Description: The size of the database (GiB)
+    Type: Number
+    MinValue: '5'
+    MaxValue: '1024'
+    ConstraintDescription: must be between 20 and 65536 GiB.
+  DBUsername:
+    Default: '#{Project.Database.Username}'
+    NoEcho: 'true'
+    Description: Username for MySQL database access
+    Type: String
+  DBPassword:
+    Default: '#{Project.Database.Password}'
+    NoEcho: 'true'
+    Description: Password MySQL database access
+    Type: String
+  SecurityGroupIdParameter:
+    Type: String
+    MinLength: "1"
+    Default: '#{Project.AWS.SecurityGroup}'
+  
+Resources:
+  MySQLDatabase:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: !Ref DBInstanceID
+      DBInstanceClass: !Ref DBInstanceClass
+      AllocatedStorage: !Ref DBAllocatedStorage
+      Engine: MySQL
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      VPCSecurityGroups:
+        - !Ref SecurityGroupIdParameter
